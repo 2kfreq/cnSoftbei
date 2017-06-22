@@ -45,7 +45,7 @@ def eshowsearch(dates):
             finalname=""
             finalcity=""
             finaltime=""
-    
+            society=""
             for test in name:
                 finalname=test.get_text().strip()
             for time in showtime:
@@ -54,7 +54,9 @@ def eshowsearch(dates):
                     finalcity=(time[5:])
                 if re.compile('^举办时间*').findall(time) :
                     finaltime=(time[5:])
-            cur.execute("INSERT IGNORE INTO zhanhuidetail VALUES ('%s','%s','%s')"%(str(finalname),str(finalcity),str(finaltime)))
+                if re.compile('^主办单位*').findall(time) :
+                    society=(time[5:])
+            cur.execute("INSERT IGNORE INTO zhanhuidetail VALUES ('%s','%s','%s','%s')"%(str(finalname),str(finalcity),str(finaltime),str(society)))
             conn.commit()
         cur.close()
         conn.close()
