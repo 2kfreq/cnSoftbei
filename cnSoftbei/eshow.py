@@ -1,5 +1,6 @@
 import pymysql
 import requests
+import mysql
 from bs4 import BeautifulSoup
 import re
 def eshowsearch(dates):
@@ -40,8 +41,6 @@ def eshowsearch(dates):
             zhanhui=BeautifulSoup(zhanhui.text,'lxml')
             name=zhanhui.find_all('h1')
             showtime=zhanhui.find_all('p');
-            conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='raojun123', db='zhanhui', charset='utf8')
-            cur = conn.cursor()
             finalname=""
             finalcity=""
             finaltime=""
@@ -56,7 +55,6 @@ def eshowsearch(dates):
                     finaltime=(time[5:])
                 if re.compile('^主办单位*').findall(time) :
                     society=(time[5:])
-            cur.execute("INSERT IGNORE INTO zhanhuidetail VALUES ('%s','%s','%s','%s')"%(str(finalname),str(finalcity),str(finaltime),str(society)))
-            conn.commit()
-        cur.close()
-        conn.close()
+                    if society=='':
+                        society='民间组织'
+            mysql.insertSQL("INSERT IGNORE INTO zhanhuidetail VALUES ('%s','%s','%s','%s')"%(str(finalname),str(finalcity),str(finaltime),str(society)))

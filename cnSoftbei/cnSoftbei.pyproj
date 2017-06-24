@@ -21,11 +21,20 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="china-show.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="eshow.py" />
     <Compile Include="dm.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="main.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="mysql.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="testpy.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
